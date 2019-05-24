@@ -1,0 +1,153 @@
+import java.util.*;                                                     //导入 java.util包中的类接口。
+
+
+public class StudentDemo {
+    public static void main(String[] args) {
+        List<Student> stu = new ArrayList<Student>();                   //实例化List集合
+        stu.add(new Student("张三", "000001", 90));//保存数据
+        stu.add(new Student("李四", "000002", 95));//保存数据
+        Iterator<Student> iter = stu.iterator();                        //实例化Iterator接口，通过迭代器进行输出
+        while (iter.hasNext()) {                                        //判断是否有数据
+            Student student = iter.next();                              //取出当前数据
+            System.out.println(student);                                //输出数据
+        }
+
+        System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                "输入4进行修改操作，输入5进行排序，输入6退出程序:");
+        Scanner scanner = new Scanner(System.in);
+        while (!scanner.hasNext("6")) {                 //判断键盘是否有输出，当键盘输出‘6’时退出循环
+            int inputNumber = scanner.nextInt();                 //将键盘输入的下一个整形数据赋值给inputNumber
+            switch (inputNumber) {                              //根据不同数据进行选择
+                case 1: {                                       //增加数据
+                    add((ArrayList<Student>) stu);              //调用add方法
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");//提示进行下一步操作
+                    break;                                      //退出switch选择
+                }
+                case 2: {                                       //删除数据
+                    remove((ArrayList<Student>) stu);           //调用remove()方法
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");//提示进行下一步操作
+                    break;
+                }
+                case 3: {                                     //查询数据
+                    find((ArrayList<Student>) stu);             //调用find()方法
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");//提示进行下一步操作
+                    break;
+
+                }
+                case 4: {
+                    change((ArrayList<Student>) stu);           //调用change()方法
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");//提示进行下一步操作
+                    break;
+                }
+                case 5: {                                           //根据成绩进行排序
+                    sort((ArrayList<Student>) stu);                 //调用sort()方法
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");//提示进行下一步操作
+                    break;
+                }
+                default: {                                         //若输入其他数据则输出提示
+                    System.out.println("输入错误");
+                    System.out.println("输入1进行增加操作，输入2进行删除操作，输入3进行查询操作，" +
+                            "输入4进行修改操作，输入5进行排序，输入6退出程序:");
+                    break;
+                }
+
+
+            }
+        }
+        System.out.println("程序退出");                             //提示程序退出
+    }
+
+    public static void add(ArrayList<Student> stu) {
+        System.out.println("请依次输入姓名、学号、成绩");
+        Scanner scanner = new Scanner(System.in);                   //打开键盘输出
+        //将下三个数据分别赋值给Name，Id，Score
+        String Name = scanner.next();
+        String Id = scanner.next();
+        Double Score = scanner.nextDouble();
+        stu.add(new Student(Name, Id, Score));
+        Iterator<Student> iter = stu.iterator();                        //实例化Iterator接口，通过迭代器进行输出
+        while (iter.hasNext()) {                                        //判断是否有数据
+            Student student = iter.next();                              //取出当前数据
+            System.out.println(student);                                //输出
+        }
+    }
+
+    public static void remove(ArrayList<Student> stu) {
+        System.out.println("请依次输入姓名、学号、成绩");
+        Scanner scanner = new Scanner(System.in);                       //打开键盘输出
+        //将下三个数据分别赋值给Name，Id，Score
+        String Name = scanner.next();
+        String Id = scanner.next();
+        Double Score = scanner.nextDouble();
+        stu.remove(new Student(Name, Id, Score));                       //调用List接口中的remove()方法进行数据删除
+        Iterator<Student> iter = stu.iterator();                        //实例化Iterator接口，通过迭代器进行输出
+        while (iter.hasNext()) {                                        //判断是否有数据
+            Student student = iter.next();                              //取出当前数据
+            System.out.println(student);                                //输出
+        }
+
+    }
+
+    public static void find(ArrayList<Student> stu) {
+        Scanner scanner = new Scanner(System.in);                       //打开键盘输出
+        System.out.println("请输入要查询的学生的姓名：");
+        String Name = scanner.next();                                   //将键盘输入的数据赋值给Name
+        int index=-1;                                                   //定义一个索引
+        for(int i=0;i<stu.size();i++){                                  //循环进行判断，当姓名与输入的姓名相同时，把i赋值给索引
+            Student s= stu.get(i);
+            if (s.getName().equals(Name)){
+                index=i;
+            }
+        }
+        if(index==-1){                                                  //当index=-1时，说明index没有重新被赋值，说明集合里没有此学生
+            System.out.println("此学生信息未录入");
+        }else{
+            System.out.println(stu.get(index));                         //依据索引，输出查找的那一条学生信息
+        }
+
+    }
+
+    public static void change(ArrayList<Student> stu) {
+        Scanner scanner = new Scanner(System.in);                       //打开键盘输出
+        System.out.print("请输入要改变的学生的姓名："+'\n');
+        String changeName = scanner.next();                             //将键盘输入的数据赋值给Name
+        int index = -1;                                                 //定义一个索引
+        for (int i = 0; i < stu.size(); i++) {                          //循环进行判断，当姓名与输入的姓名相同时，把i赋值给索引
+            Student s = stu.get(i);
+            if (s.getName().equals(changeName)) {
+                index = i;
+            }
+        }
+        if (index == -1) {                                              //当index=-1时，说明index没有重新被赋值，说明集合里没有此学生
+            System.out.println("此学生信息未录入");
+        } else {
+            System.out.println("请输入新学号：");
+            String id = scanner.next();                                 //将下两个数据分别赋值给id，score
+            System.out.println("请输入新成绩：");
+            double score = scanner.nextDouble();                        //创建学生对象
+            Student s = new Student(changeName, id, score);             //修改学生对象
+            stu.set(index, s);
+            System.out.println("修改学生成功");
+            Iterator<Student> iter = stu.iterator();                        //实例化Iterator接口，通过迭代器进行输出
+            while (iter.hasNext()) {                                        //判断是否有数据
+                Student student = iter.next();                              //取出当前数据
+                System.out.println(student);                                //输出
+            }
+        }
+
+    }
+
+    public static void sort(ArrayList<Student> stu) {
+        Collections.sort(stu);                                              //调用Collection中的方法进行数据排序
+        Iterator<Student> iter1 = stu.iterator();                           //实例化Iterator接口，通过迭代器进行输出
+        while (iter1.hasNext()) {                                           //判断是否有数据
+            Student student = iter1.next();                                 //取出当前数据
+            System.out.println(student);                                    //输出
+        }
+    }
+}
