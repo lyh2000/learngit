@@ -1,0 +1,59 @@
+public class Student implements Comparable<Student>{//建立一个student类，并实现Comparable接口
+    //定义对象的三个属性
+    private String name;
+    private String id;
+    private double score;
+    public Student(String name,String id,double score){//构造函数，为属性赋值
+        this.name=name;
+        this.id=id;
+        this.score=score;
+    }
+    @Override
+    public boolean equals(Object obj){   //覆写List接口中的equals()方法，使得remove()、contains()可以使用
+        if(this==obj){
+            return true;
+        }//判断两个对象是否相等
+        if(obj==null){
+            return false;
+        }//判断对象是否为空
+        if(!(obj instanceof Student)){
+            return false;
+        }//判断obj是否为Student类的一个实例
+        Student student=(Student)obj;//将obj包装在一个student类对象中
+        if(this.name.equals(student.name)&&this.id.equals(student.id)&&this.score==student.score){
+            return true;
+        }//对属性进行判等
+        return false;
+    }
+    @Override
+    public String toString(){     //覆写List接口中的toString()方法，进行数据的拼接
+        return"姓名："+this.name+"  学号："+this.id+"  成绩："+this.score+" \n";
+    }//
+    @Override
+    public int compareTo(Student o){       //覆写comparable中的compareTo方法，根据成绩进行排序
+        return (int) (o.getScore()-this.getScore());
+    }
+
+    //对属性的封装后进行的设置、取得属性
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    public String getId(){
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+}
